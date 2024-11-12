@@ -1,6 +1,6 @@
 {
   "name": "gatcg",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Community maintained Typescript client for the Grand Archive TCG API. Built using Smithy",
   "main": "./generated/dist-cjs/index.js",
   "types": "./generated/dist-types/index.d.ts",
@@ -87,7 +87,7 @@
       }
   },
   "files": [
-      "dist-*/**"
+      "generated/dist-*/**"
   ],
   "browser": {
       "./dist-es/runtimeConfig": "./dist-es/runtimeConfig.browser"
