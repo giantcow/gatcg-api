@@ -1,0 +1,13 @@
+/client/generated/*
+!/client/generated/.gitkeep
+/client/node_modules/
+/client/dist-*
+/client/*.tsbuildinfo
+/client/docs/
+/client/coverage/
+/node_modules/
+/build/
+*.tsbuildinfo
+*.tgz
+*.log
+package-lock.json
