@@ -2,7 +2,7 @@
 
 This is a work in progress! Expect LOTS of changes, but please feel free to file issues and/or PR's!
 
-A modeled version of the Grand Archive TCG API, using [Smithy].
+A modeled version of the Grand Archive TCG API, using [Smithy](https://smithy.io).
 
 This is a community maintained project, not endorsed by Weebs of the Shore.
 

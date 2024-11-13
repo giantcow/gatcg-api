@@ -5,6 +5,7 @@
 /client/*.tsbuildinfo
 /client/docs/
 /client/coverage/
+/client/README.md
 /node_modules/
 /build/
 *.tsbuildinfo
