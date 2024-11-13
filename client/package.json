@@ -1,7 +1,7 @@
 {
 	"name": "gatcg",
 	"description": "Community maintained Typescript client for the Grand Archive TCG API. Built using Smithy",
-	"version": "0.0.1-alpha.3",
+	"version": "0.0.1-alpha.4",
     "main": "./generated/dist-cjs/index.js",
 	"types": "./generated/dist-types/index.d.ts",
 	"module": "./generated/dist-es/index.js",
@@ -29,8 +29,10 @@
 		"build:types": "tsc -p ./generated/tsconfig.types.json",
 		"build:types:downlevel": "downlevel-dts ./generated/dist-types ./generated/dist-types/ts3.4",
 		"clean": "rimraf ./generated/dist-* && rimraf ./generated/*.tsbuildinfo || exit 0",
-		"update:readme": "cp -f ../README.md ./",
-		"prepack": "npm run clean && npm run build && npm run update:readme"
+		"fixes": "npm run fix:readme && npm run fix:packagejsonrefs",
+		"fix:readme": "cp -f ../README.md ./",
+		"fix:packagejsonrefs":"./package.json_fixes.sh",
+		"prepack": "npm run clean && npm run build && npm run fixes"
 	},
 	"dependencies": {
 		"tslib": "^2.6.2",
@@ -91,9 +93,9 @@
 		"generated/dist-*/**"
 	],
 	"browser": {
-		"./dist-es/runtimeConfig": "./dist-es/runtimeConfig.browser"
+		"./generated/dist-es/runtimeConfig": "./generated/dist-es/runtimeConfig.browser"
 	},
 	"react-native": {
-		"./dist-es/runtimeConfig": "./dist-es/runtimeConfig.native"
+		"./generated/dist-es/runtimeConfig": "./generated/dist-es/runtimeConfig.native"
 	}
 }
