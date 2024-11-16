@@ -1,13 +1,7 @@
-/client/generated/*
-!/client/generated/.gitkeep
-/client/node_modules/
-/client/dist-*
-/client/*.tsbuildinfo
-/client/docs/
-/client/coverage/
-/client/README.md
 /node_modules/
 /build/
+/client/generated/*
+!/client/generated/.gitkeep
 *.tsbuildinfo
 *.tgz
 *.log

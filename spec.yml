@@ -1,0 +1,125 @@
+openapi: "3.0.3"
+info:
+  title: Grand Archive TCG API
+  version: "0.0"
+  description: "See https://index.gatcg.com/api"
+servers:
+  - url: https://api.gatcg.com
+
+paths:
+  /cards/search:
+    description: <
+      Search cards based on the query parameters.
+      Use the Advanced Search page to learn interactively. The API query section generates the API URL with parameters automatically.
+      If there are multiple different parameters, the result is the cards that match all the parameters.
+      If there are multiple repeating parameters, the result can be selected to either match all or match any of the repeating parameters.
+    get:
+      parameters:
+        - name: "name"
+          required: true
+          in: query
+          description: "Get cards with `name` that is similar to this string."
+          schema:
+            type: string
+        - name: "stats"
+          required: false
+          in: query
+          description: <
+            Stats query is a string used in `/cards/search?stats=[query]` to retrieve cards based on numerical stat attributes.
+            Each condition consists of a stat name, a comparison operator, and an integer.
+            Multiple conditions are joined using a semicolon.
+            Multiple conditions are joined using AND logical operator.
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: "No result found"
+  /cards/autocomplete:
+    description: Return an array with up to 10 basic cards' data. The array is sorted by closest match and then alphabetically by card's name.
+    get:
+      parameters:
+        - name: "name"
+          required: true
+          in: query
+          description: "The query to search for cards by their names."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: "No result found"
+  /cards/random:
+    description: Return an array with up to 20 random cards.
+    get:
+      parameters:
+        - name: "amount"
+          required: false
+          in: query
+          description: "The amount of random cards to get. Cannot exceed 20."
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 20
+            default: 20
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: "Error. Check if amount is greater than 20."
+  /cards/{slug}:
+    description: Return a card that matches the given slug exactly.
+    get:
+      parameters:
+        - name: "slug"
+          required: true
+          in: path
+          description: "A string that represent each unique card's name."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: "No result"
+  /cards/{prefix}/{collectorNumber}:
+    description: <
+      Return a card with an edition that matches the given collectorNumber exactly and belongs to the set with the given prefix.
+    get:
+      parameters:
+        - name: "prefix"
+          required: true
+          in: path
+          description: "A string that represents a set prefix that a card's edition belongs to."
+          schema:
+            type: string
+        - name: "collectorNumber"
+          required: true
+          in: path
+          description: "A string that represents the collector number of a card's edition."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: "No result"
+  /cards/edition/{editionSlug}:
+    description: <
+      Return a card with an edition that matches the given editionSlug exactly.
+      The edition that matches the editionSlug will be in result_editions array.
+    get:
+      parameters:
+        - name: "editionSlug"
+          required: true
+          in: path
+          description: "A string that represent each unique edition name."
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+        "204":
+          description: "No result"

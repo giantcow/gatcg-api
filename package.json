@@ -4,7 +4,10 @@
   "description": "Reverse engineered model for the Grand Archive TCG API",
   "main": "index.js",
   "scripts": {
-    "update": "./update.sh"
+    "build:fetch": "openapi-generator-cli generate -i spec.yml -g typescript-fetch -o ./client/generated/fetch",
+    "build:axios": "openapi-generator-cli generate -i spec.yml -g typescript-axios -o ./client/generated/axios",
+    "build:node": "openapi-generator-cli generate -i spec.yml -g typescript-node -o ./client/generated/node",
+    "build": "concurrently 'npm:build:fetch' 'npm:build:axios' 'npm:build:node'"
   },
   "repository": {
     "type": "git",
@@ -20,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/giantcow/gatcg-api/issues"
   },
-  "homepage": "https://github.com/giantcow/gatcg-api#readme"
+  "homepage": "https://github.com/giantcow/gatcg-api#readme",
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.15.3"
+  }
 }
