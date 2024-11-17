@@ -6,6 +6,159 @@ info:
 servers:
   - url: https://api.gatcg.com
 
+components:
+  responses:
+    NotFound:
+      description: "No Result"
+  schemas:
+    FullCard:
+      type: object
+      required:
+        - uuid
+        - name
+        - slug
+        - types
+      properties:
+        uuid:
+          type: string
+        types:
+          type: array
+          items:
+            type: string
+        subtypes:
+          type: array
+          items:
+            type: string
+        classes:
+          type: array
+          items:
+            type: string
+        element:
+          type: string
+        name:
+          type: string
+        slug:
+          type: string
+        effect:
+          type: string
+        effect_raw:
+          type: string
+        rule:
+          type: string
+        flavor:
+          type: string
+        cost_memory:
+          type: integer
+        level:
+          type: integer
+        power:
+          type: integer
+        life:
+          type: integer
+        durability:
+          type: integer
+        speed:
+          type: boolean
+        legality:
+          type: string
+        related_ids:
+          type: array
+          items:
+            type: string
+        last_update:
+          type: string
+        editions:
+          type: array
+          items:
+            $ref: "#/components/schemas/CardEdition"
+        result_editions:
+          type: array
+          items:
+            type: object
+    ListOfFullCards:
+      type: array
+      items:
+        $ref: "#/components/schemas/FullCard"
+    CardSearch:
+      type: object
+      properties:
+        page:
+          type: integer
+        total_cards:
+          type: integer
+        paginated_cards_count:
+          type: integer
+        page_size:
+          type: integer
+        has_mode:
+          type: boolean
+        total_pages:
+          type: integer
+        sort:
+          type: string
+        order:
+          type: string
+        data:
+          $ref: "#/components/schemas/ListOfFullCards"
+    CardEdition:
+      type: object
+      properties:
+        card_id:
+          type: string
+        collector_number:
+          type: integer
+        slug:
+          type: string
+        illustrator:
+          type: string
+        rarity:
+          type: integer
+        # effect:
+        #   type: null
+        # flavor:
+        #   type: null
+        last_update:
+          type: string
+        thema_grace_nonfoil:
+          type: integer
+        thema_valor_nonfoil:
+          type: integer
+        thema_charm_nonfoil:
+          type: integer
+        thema_mystique_nonfoil:
+          type: integer
+        thema_ferocity_nonfoil:
+          type: integer
+        thema_grace_foil:
+          type: integer
+        thema_valor_foil:
+          type: integer
+        thema_charm_foil:
+          type: integer
+        thema_mystique_foil:
+          type: integer
+        thema_ferocity_foil:
+          type: integer
+        thema_foil:
+          type: integer
+        thema_nonfoil:
+          type: integer
+        # circulations:
+        #   type: []
+        # circulationTemplates:
+        #   type: []
+        set:
+          $ref: "#/components/schemas/CardSet"
+    CardSet:
+      type: object
+      properties:
+        name:
+          type: string
+        prefix:
+          type: string
+        language:
+          type: string
+
 paths:
   /cards/search:
     description: <
@@ -34,6 +187,10 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CardSearch"
         "204":
           description: "No result found"
   /cards/autocomplete:
@@ -67,6 +224,10 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FullCard"
         "500":
           description: "Error. Check if amount is greater than 20."
   /cards/{slug}:
@@ -81,7 +242,11 @@ paths:
             type: string
       responses:
         "200":
-          description: OK
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/FullCard"
         "204":
           description: "No result"
   /cards/{prefix}/{collectorNumber}:
@@ -122,4 +287,4 @@ paths:
         "200":
           description: OK
         "204":
-          description: "No result"
+          $ref: "#/components/responses/NotFound"

@@ -1,7 +1,7 @@
 {
   "name": "gatcg",
-  "description": "Community maintained Typescript client for the Grand Archive TCG API. Built using Smithy",
-  "version": "0.0.1-alpha.8",
+  "description": "Community maintained Typescript client for the Grand Archive TCG API.",
+  "version": "0.0.1-alpha.10",
   "main": "index.ts",
   "sideEffects": false,
   "license": "Apache-2.0",

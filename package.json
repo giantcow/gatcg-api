@@ -7,7 +7,8 @@
     "build:fetch": "openapi-generator-cli generate -i spec.yml -g typescript-fetch -o ./client/generated/fetch",
     "build:axios": "openapi-generator-cli generate -i spec.yml -g typescript-axios -o ./client/generated/axios",
     "build:node": "openapi-generator-cli generate -i spec.yml -g typescript-node -o ./client/generated/node",
-    "build": "concurrently 'npm:build:fetch' 'npm:build:axios' 'npm:build:node'"
+    "build": "npm run clean && concurrently 'npm:build:fetch' 'npm:build:axios' 'npm:build:node'",
+    "clean": "rm -rfd ./client/generated/*"
   },
   "repository": {
     "type": "git",
